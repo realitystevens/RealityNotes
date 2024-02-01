@@ -93,15 +93,9 @@ STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
 
-if config('ENV') == 'PROD':
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
-        os.path.join(BASE_DIR, 'static_assets'),
-    ]
-else:
-    STATICFILES_DIRS = [
-        os.path.join(BASE_DIR, 'static'),
-    ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 
 MEDIA_URL = 'media/'
 
