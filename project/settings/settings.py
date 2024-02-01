@@ -3,12 +3,10 @@ from decouple import config
 from pathlib import Path
 
 
-
-BASE_DIR = Path(__file__).resolve().parent.parent
+# BASE_DIR - Directing to same directory/folder where the manage.py file is
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
-
-DEBUG = config('DEBUG')
 
 ALLOWED_HOSTS = ["*"]
 
@@ -20,6 +18,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
+    'ckeditor',
+    'ckeditor_uploader',
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
@@ -34,10 +36,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'project.urls'
 
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -52,12 +55,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -83,12 +80,28 @@ USE_I18N = True
 USE_TZ = True
 
 
+# CKEDITOR_BASEPATH = ''
+
+CKEDITOR_UPLOAD_PATH = 'assets/editor'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full'
+    }
+}
+
+
 STATIC_URL = 'static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_assets')
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static')
+    os.path.join(BASE_DIR, 'static'),
 ]
+
+MEDIA_URL = 'media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

@@ -6,7 +6,11 @@ from decouple import config
 
 
 def main():
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
+    if config('ENV') == 'PROD':
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.production')
+    else:
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings.development')
+        
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
