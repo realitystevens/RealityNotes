@@ -80,8 +80,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# CKEDITOR_BASEPATH = ''
-
 CKEDITOR_UPLOAD_PATH = 'assets/editor'
 
 CKEDITOR_CONFIGS = {
