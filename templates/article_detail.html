@@ -5,14 +5,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>{{article_details.title}} | Reality Notes </title>
+    <link rel="stylesheet" href="../style/article-templates.css">
+    <link rel="stylesheet" href="{% static 'global.css' %}">
+    <link rel="stylesheet" href="{% static 'header.css' %}">
+    <link rel="stylesheet" href="{% static 'footer.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="body">
+        <div class="content">
+            <div class="wrapper">
 
-    <h1>{{article_details.title}}</h1>
-    <p>{{article_details.url_hash}}</p>
-    <div>{{article_details.content|safe}}</div>
-    <p>{{article_details.published_at}}</p>
-    
+                <header class="header" id="header">
+                    {% include 'global/header.html' %}
+                </header>
+
+                <main class="main" id="main">
+                    <div class="m_content">
+                        <div class="m_wrap">
+
+                            <section class="a_hero pad_space">
+                                <div class="a_hero_wrap">
+                                    <span class="a_hero_tag">
+                                        <span class="material-symbols-outlined">label</span>
+                                        <span class="a_hero_tag_art__">ARTICLE</span>
+                                    </span>  
+
+                                    <h1 class="article_title">{{article_details.title}}</h1>
+
+                                    <p class="aa_det_p">By <span>Reality Stevens</span> / {{article_details.published_at.date|date:"F Y"}}</p>
+
+                                    <div class="share_cont">
+                                        <span class="material-symbols-outlined share_btn">share</span>
+                                        <div class="link_preview">
+                                            <p class="lc lcc">Link copied!</p>
+                                            <p class="page_url lcc"></p>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                            </section>
+
+
+                            <section class="a_article">
+                                <div class="a_article_wrap pad_space">
+                                    <div class="img_cont">
+                                        <img src="{{article_details.image.url}}" alt="{{article_details.image_alt}}" class="article_hero_img">
+                                    </div> 
+                                    <div>{{article_details.content|safe}}</div>
+                                </div>
+                            </section>
+
+                            <br><br><hr><br><br>
+
+                        </div>
+                    </div>                   
+                </main>
+
+                <footer class="footer" id="footer">
+                    {% include 'global/footer.html' %}
+                </footer>
+                
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'shareBtn.js' %}"></script>
+
 </body>
 </html>
