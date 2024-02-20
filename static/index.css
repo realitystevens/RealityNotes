@@ -6,6 +6,7 @@
 .futr_tag {
     font-size: 12px;
     color: var(--red);
+    text-transform: uppercase;
 }
 
 
@@ -18,12 +19,19 @@
 
 .futr_desc {
     font-size: 20px;
+    padding-bottom: 30px;
+}
+
+.futr_x-info {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    font-size: 12px;
 }
 
 .futr_time_read {
-    font-size: 12px;
     color: var(--gray);
-    padding: 30px 0px 0px 0px;
+    text-transform: uppercase;
 }
 
 
@@ -68,12 +76,18 @@
     font-size: 12px;
 }
 
+.article_tag {
+    margin-right: 30px;
+}
+
 .date {
     color: var(--gray);
+    text-transform: uppercase;
 }
 
 .time_read {
     color: var(--red);
+    text-transform: uppercase;
 }
 
 
@@ -117,7 +131,7 @@
         font-size: 14px;
     }
 
-    .futr_time_read {
+    .futr_x-info {
         font-size: 14px;
     }
 
@@ -154,7 +168,7 @@
     .article_msn {
         font-size: 14px;
     }
-      
+
 }
 
 
@@ -172,15 +186,15 @@
     .main_body {
         gap: 3em;
     }
-    
+
 }
 
 @media only screen and (min-width: 1300px) {
 
-   .m_content {
+    .m_content {
         margin: 0px auto;
         max-width: 1250px;
 
-   }
-    
+    }
+
 }
