@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article
+from .models import Article, Tag
 
 
 
@@ -16,3 +16,12 @@ class ArticleAdmin(admin.ModelAdmin):
     search_fields = ('title__startswith', 'urlhash__startswith', 'published_at__startswith',)
 
 admin.site.register(Article, ArticleAdmin)
+
+
+class TagAdmin(admin.ModelAdmin):
+
+    list_display = ('tag_name', 'tag_hash',)
+
+    search_fields = ('tag_name__startswith', 'tag_hash__startswith',)
+
+admin.site.register(Tag, TagAdmin)

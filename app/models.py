@@ -15,12 +15,51 @@ from decouple import config
 def random_digits():
     return ''.join(random.choice('23456789') for i in range(5))
 
+def hash_generate():
+    hash = []
+    random_numbers = random.choice('23456789')
+
+    for x in range(3):
+        hash.append(random_numbers)
+
+    return ''.join(hash)
+
+
+
+class Tag(models.Model):
+
+    tag_name = models.CharField(
+        default='',
+        max_length=50,
+        blank=False,
+        null=False,
+    )
+
+    tag_hash = models.CharField(
+        default=hash_generate,
+        max_length=5,
+        primary_key=True,
+        unique=True,
+        blank=False,
+        null=False,
+    )
+
+
+    class Meta:
+        ordering = ('tag_name', 'tag_hash',)
+
+
+    def __str__(self):
+        return self.tag_name
+
+
+
 
 class Article(models.Model):
 
     url_hash = models.SlugField(
         max_length=5, 
-        default=random_digits(),
+        default=random_digits,
         primary_key=True,
         unique=True,
         help_text='Unique URL path for the Article',
@@ -59,6 +98,12 @@ class Article(models.Model):
         default=''
     ) 
 
+    tag = models.ForeignKey(
+        Tag,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+
     content = RichTextUploadingField()
 
     is_featured = models.BooleanField(
@@ -87,9 +132,9 @@ class Article(models.Model):
         mins_read = num_of_words / words_per_minute
 
         if mins_read < 1:
-            mins_read = 1
+            mins_read = '1 Min Read'
         else:
-            mins_read = round(mins_read)
+            mins_read = f'{round(mins_read)} Mins Read'
 
         return mins_read
 
