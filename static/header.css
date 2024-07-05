@@ -1,9 +1,18 @@
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 100;
+}
+
 .hd_content {
     padding: 20px 20px 15px 20px;
     border-bottom: 1px var(--mid-gray) solid;
+    background-color: #fff;
+    opacity: 90%;
 }
 
 .logo {
+    font-family: 'Sora' !important;
     font-size: 24px;
     font-weight: 700 !important;
     color: var(--black);
