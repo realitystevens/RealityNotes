@@ -1,5 +1,5 @@
 .a_hero_wrap {
-    padding-top: 20px !important;
+    padding-top: 80px !important;
     border-bottom: 1px solid var(--gray);
     padding-bottom: 30px;
 }
@@ -55,6 +55,7 @@
 
 .a_article_wrap {
     padding-top: 10px !important;
+    padding-bottom: 50px !important;
 }
 
 .img_cont {
@@ -78,7 +79,7 @@
 
 @media only screen and (min-width: 700px) {
     .a_hero_wrap {
-        padding-top: 50px !important;
+        padding-top: 100px !important;
         border-bottom: 1px solid var(--gray);
         padding-bottom: 50px;
     }
@@ -98,6 +99,7 @@
 
     .a_article_wrap {
         padding-top: 40px !important;
+        padding-bottom: 80px !important;
     }
     
 
@@ -120,6 +122,10 @@
 
 
 @media only screen and (min-width: 900px) {
+    .a_hero_wrap {
+        padding-top: 130px !important;
+    }
+
     .article_title {
         font-size: 45px;
     }

@@ -5,15 +5,16 @@
 }
 
 :root {
-    --black: #000;
+    --black: #202124;
     --red: #E8522C;
+    --gray: #999999;
     --mid-gray: #CCC;
     --light-gray: #E6E6E6;
-    --gray: #999999;
 }
 
 body {
     font-family: 'Inter', sans-serif;
+    color: var(--black);
 }
 
 a {
