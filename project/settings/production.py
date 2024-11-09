@@ -9,7 +9,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '.onrender.com',
-    'n.realitystevens.me'
+    'n.rstvns.online'
 ]
 
 MIDDLEWARE = [
