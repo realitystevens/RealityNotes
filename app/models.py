@@ -138,7 +138,7 @@ class Article(models.Model):
 
         return mins_read
 
-        
+
 
 
     class Meta:
