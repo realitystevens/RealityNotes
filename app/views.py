@@ -29,7 +29,7 @@ def article(request):
 
 def article_detail(request, url_hash):
     article_details = Article.objects.get(url_hash=url_hash)
-    
+
 
     context = {
         'article_details': article_details,
