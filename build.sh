@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # exit on error
-set -o errexit
+set -ex
 
 echo "Create virtual environment"
 python3 -m venv venv
