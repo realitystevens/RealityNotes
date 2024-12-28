@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect
 from .models import Article
 
@@ -29,10 +29,17 @@ def article(request):
 
 def article_detail(request, url_hash):
     article_details = Article.objects.get(url_hash=url_hash)
-
-
     context = {
         'article_details': article_details,
     }
 
     return render(request, 'article_detail.html', context)
+
+
+""" API Endpoint for 'appcron.netlify.app' """
+def active(request):
+    if request.method == "GET":
+        return JsonResponse({'status': 'active'}, status=200)
+    else:
+        return JsonResponse({'status': 'error', 'message': 'Use GET request'}, status=400)
+    
