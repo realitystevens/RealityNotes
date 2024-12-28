@@ -10,7 +10,7 @@ echo "Upgrading pip"
 pip install --upgrade pip
 
 echo "Install 'urllib' that requires OpenSSL 1.1.1+"
-pip install urllib3<2.0
+pip install "urllib3<2.0"
 
 echo "Installing dependencies"
 pip install -r requirements.txt
