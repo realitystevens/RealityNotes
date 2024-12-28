@@ -6,6 +6,9 @@ set -ex
 echo "Create virtual environment"
 python3 -m venv venv
 
+echo "Activate virtual environment"
+source venv/bin/activate
+
 echo "Upgrading pip"
 pip install --upgrade pip
 
