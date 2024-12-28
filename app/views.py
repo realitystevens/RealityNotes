@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 from django.shortcuts import redirect
 from .models import Article
 
@@ -42,4 +42,4 @@ def active(request):
         return JsonResponse({'status': 'active'}, status=200)
     else:
         return JsonResponse({'status': 'error', 'message': 'Use GET request'}, status=400)
-    
+        
