@@ -42,4 +42,3 @@ def active(request):
         return JsonResponse({'status': 'active'}, status=200)
     else:
         return JsonResponse({'status': 'error', 'message': 'Use GET request'}, status=400)
-    
