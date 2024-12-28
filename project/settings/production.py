@@ -9,6 +9,7 @@ DEBUG = False
 
 ALLOWED_HOSTS = [
     '.onrender.com',
+    '.vercel.app',
     'notes.rstvns.online'
 ]
 
