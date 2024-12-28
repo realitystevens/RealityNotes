@@ -18,6 +18,9 @@ pip install -r requirements.txt
 echo "Install 'urllib' that requires OpenSSL 1.1.1+"
 pip install "urllib3<2.0"
 
+echo "Install 'gunicorn' for production"
+pip install 'gunicorn'
+
 echo "Collecting static files"
 python3 manage.py collectstatic --no-input
 
