@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'cloudinary',
     'cloudinary_storage',
+    'rest_framework',
 ]
 
 ROOT_URLCONF = 'project.urls'
