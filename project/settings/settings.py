@@ -17,6 +17,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app.apps.AppConfig',
+    'resume.apps.ResumeConfig',
     'ckeditor',
     'ckeditor_uploader',
     'cloudinary',
