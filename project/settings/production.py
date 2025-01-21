@@ -5,13 +5,7 @@ import cloudinary.api
 import cloudinary.uploader
 
 
-DEBUG = False
 
-ALLOWED_HOSTS = [
-    '.onrender.com',
-    '.vercel.app',
-    'notes.rstvns.online'
-]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
