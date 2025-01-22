@@ -12,5 +12,5 @@ router.register(r'certifications', CertificationViewSet)
 
 
 urlpatterns = [
-    path('api/v1/', include(router.urls)),
+    path('api/', include(router.urls)),
 ]

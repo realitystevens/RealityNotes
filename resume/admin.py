@@ -4,7 +4,11 @@ from .models import Organization, Experience, Skill, Certification, Summary
 
 
     
-admin.site.register(Summary)
+class SummaryAdmin(admin.ModelAdmin):
+    list_display = ('professional_summary', 'is_published',)
+    list_filter = ('is_published',)
+    search_fields = ('professional_summary__startswith',)
+admin.site.register(Summary, SummaryAdmin)
 
 
 class OrganizationAdmin(admin.ModelAdmin):
