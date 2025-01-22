@@ -7,7 +7,7 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 cloudinary==1.38.0
 cryptography==42.0.1
-Django==5.1.5
+Django==4.2
 django-ckeditor==6.7.2
 django-ckeditor-5==0.2.15
 django-cloudinary-storage==0.3.0
