@@ -1,117 +1,76 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reality Notes</title>
-    <meta name="description" content="Sharing life's valuable lessons">
-    <meta property="og:title" content="Reality Notes">
-    <meta property="og:site_name" content="Reality Notes">
-    <meta property="og:description" content="Sharing life's valuable lessons">
-    <meta property="og:url" content="n.realitystevens.me">
-    <meta property="og:image" content="{% static 'assets/og_image.png' %}">
-    <meta property="og:type" content="website">
-    <link rel="stylesheet" href="{% static 'index.css' %}">
-    <link rel="stylesheet" href="{% static 'global.css' %}">
-    <link rel="stylesheet" href="{% static 'header.css' %}">
-    <link rel="stylesheet" href="{% static 'footer.css' %}">
-    <link rel="shortcut icon" href="{% static 'assets/favicon.png' %}" type="image/x-icon">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div class="body">
-        <div class="content">
-            <div class="wrapper">
+{% block title %}Home{% endblock %}
 
-                <header class="header" id="header">
-                    {% include 'global/header.html' %}
-                </header>
-
-                <main class="main" id="main">
-                    <div class="m_content">
-                        <div class="m_wrap">   
-                            
-                            <div class="futr pad_space">
-                                <article class="futr_a">
-                                    <div class="futr_acw">
-                                        <span class="futr_tag">FEATURED - {{featured_article.published_at.date|date:"F Y"}}</span>
-                                        <a href="a/{{featured_article.url_hash}}" class="futr_title">
-                                            <h2 class="futr_title_h">{{featured_article.title}}</h2>
-                                        </a>
-                                        <p class="futr_desc">{{featured_article.description}}</p>
-                                        <div class="futr_x-info" >
-                                            <span class="tag">{{featured_article.tag}}</span>
-                                            <p class="futr_time_read">{{featured_article.mins_read}}</p>
-                                        </div>
-                                    </div>
-                                </article>
-                            </div>
-
-                            
-
-                            <div class="main_body">
-
-                                <section class="article_section pad_space">
-
-                                    <div class="a_main_dim">
-                                        <p class="a_main_dim_p">ARTICLES</p>
-                                        <hr class="a_main_dim_hr">
-                                    </div>
-
-                                    <div class="article_section_wrap">
-
-                                        {% for article in articles %}
-                                        <article class="article" id="article">
-                                            <div class="article_wrap">
-                                                <a href="/a/{{article.url_hash}}" class="article_title">
-                                                    <h2 class="article_title_h">{{article.title}}</h2>
-                                                </a>
-                                                <p class="article_desc">{{article.description}}</p>
-                                                <span class="article_msn">
-                                                    <span class="tag article_tag">{{article.tag}}</span>
-                                                    <span class="date">{{article.published_at.date|date:"F Y"}} .- </span>
-                                                    <span class="time_read">. {{article.mins_read}}</span>
-                                                </span>
-                                            </div>
-                                        </article>
-                                        {% endfor %}
-
-                                    </div>
-                                </section>
-
-                                <section class="about pad_space">
-
-                                    <div class="a_main_dim">
-                                        <p class="a_main_dim_p">ABOUT</p>
-                                        <hr class="a_main_dim_hr">
-                                    </div>
-
-                                    <div class="about_wrap">
-                                        <h1 class="about_title">Reality Notes</h1>
-                                        <p class="about_desc">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, ipsa earum cupiditate maxime consequatur nam ullam enim sunt facilis natus.</p>
-                                    </div>
-                                </section>
-                            </div>
+{% block head %}
+<meta property="og:type" content="website">
+<meta property="og:title" content="Reality Notes">
+<meta name="description" content="Sharing life's valuable lessons">
+<meta property="og:image" content="{% static 'assets/og_image.png' %}">
+<link rel="canonical" href="{{request.build_absolute_uri}}">
+<link rel="stylesheet" href="{% static 'index.css' %}">
+{% endblock %}
 
 
-                        </div>
-                    </div>
-                </main>
 
-                <footer class="footer" id="footer">
-                    {% include 'global/footer.html' %}
-                </footer>
-
+{% block content %}
+<div class="futr pad_space">
+    <article class="futr_a">
+        <div class="futr_acw">
+            <span class="futr_tag">FEATURED - {{featured_article.published_at.date|date:"F Y"}}</span>
+            <a href="a/{{featured_article.url_hash}}" class="futr_title">
+                <h2 class="futr_title_h">{{featured_article.title}}</h2>
+            </a>
+            <p class="futr_desc">{{featured_article.description}}</p>
+            <div class="futr_x-info" >
+                <span class="tag">{{featured_article.tag}}</span>
+                <p class="futr_time_read">{{featured_article.mins_read}}</p>
             </div>
         </div>
-    </div>
+    </article>
+</div>
 
-    <script src="https://kit.fontawesome.com/01187779a7.js" crossorigin="anonymous"></script>
-    
-</body>
-</html>
+<div class="main_body">
+    <section class="article_section pad_space">
+
+        <div class="a_main_dim">
+            <p class="a_main_dim_p">ARTICLES</p>
+            <hr class="a_main_dim_hr">
+        </div>
+
+        <div class="article_section_wrap">
+
+            {% for article in articles %}
+            <article class="article" id="article">
+                <div class="article_wrap">
+                    <a href="/a/{{article.url_hash}}" class="article_title">
+                        <h2 class="article_title_h">{{article.title}}</h2>
+                    </a>
+                    <p class="article_desc">{{article.description}}</p>
+                    <span class="article_msn">
+                        <span class="tag article_tag">{{article.tag}}</span>
+                        <span class="date">{{article.published_at.date|date:"F Y"}} .- </span>
+                        <span class="time_read">. {{article.mins_read}}</span>
+                    </span>
+                </div>
+            </article>
+            {% endfor %}
+
+        </div>
+    </section>
+
+    <section class="about pad_space">
+
+        <div class="a_main_dim">
+            <p class="a_main_dim_p">ABOUT</p>
+            <hr class="a_main_dim_hr">
+        </div>
+
+        <div class="about_wrap">
+            <h1 class="about_title">Reality Notes</h1>
+            <p class="about_desc">{{website_description.content}}</p>
+        </div>
+    </section>
+</div>
+{% endblock %}
