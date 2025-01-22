@@ -1,5 +1,5 @@
 anyio==3.7.1
-asgiref==3.7.2
+asgiref==3.8.1
 CacheControl==0.13.1
 cachetools==5.3.2
 certifi==2023.11.17
@@ -7,8 +7,9 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 cloudinary==1.38.0
 cryptography==42.0.1
-Django==4.2
-django-ckeditor==6.7.0
+Django==5.1.5
+django-ckeditor==6.7.2
+django-ckeditor-5==0.2.15
 django-cloudinary-storage==0.3.0
 django-js-asset==2.2.0
 djangorestframework==3.15.2
