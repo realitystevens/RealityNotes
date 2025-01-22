@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.timezone import datetime
 from django.utils.html import strip_tags
 from cloudinary.models import CloudinaryField
-from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 from decouple import config
 
 
@@ -37,7 +37,7 @@ class Article(models.Model):
     image = CloudinaryField('image') if config('ENV') == 'PROD' else models.ImageField(upload_to='assets/article', blank=False, null=False, default='')
     image_alt = models.CharField(max_length=100, blank=False, null=False, default='') 
     tag = models.ForeignKey(Tag, on_delete=models.SET_NULL, null=True)
-    content = RichTextUploadingField()
+    content = RichTextField()
     is_featured = models.BooleanField(default=False, help_text='Featured Article? (Will display as first Article on Homepage)')
     published_at = models.DateTimeField(default=datetime.now, editable=True, null=False, blank=False)
 
@@ -65,3 +65,15 @@ class Article(models.Model):
     def __str__(self):
         return self.url_hash
 
+
+
+class WebsiteDescription(models.Model):
+    content = models.TextField(max_length=9000, blank=False, null=False, default='')
+    is_published = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name_plural = 'Website Description'
+
+    def __str__(self):
+        return self.content
+    

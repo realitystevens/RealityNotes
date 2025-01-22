@@ -1,6 +1,5 @@
-from django.shortcuts import render
-from django.shortcuts import redirect
-from .models import Article
+from django.shortcuts import render, redirect
+from .models import Article, WebsiteDescription
 
 
 
@@ -8,6 +7,7 @@ from .models import Article
 def index(request):
     articles = Article.objects.all()
     featured_article = Article.objects.filter(is_featured=True)
+    website_description = WebsiteDescription.objects.first()
 
     for article in articles:
         article.mins_read = article.mins_read()
@@ -18,6 +18,7 @@ def index(request):
     context = {
         'articles': articles,
         'featured_article': featured_article,
+        'website_description': website_description,
     }
 
     return render(request, 'index.html', context)

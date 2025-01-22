@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Article, Tag
+from .models import Article, Tag, WebsiteDescription
 
 
 
@@ -18,3 +18,10 @@ class TagAdmin(admin.ModelAdmin):
     list_display = ('tag_name', 'tag_hash',)
     search_fields = ('tag_name__startswith', 'tag_hash__startswith',)
 admin.site.register(Tag, TagAdmin)
+
+
+class WebsiteDescriptionAdmin(admin.ModelAdmin):
+    list_display = ('content', 'is_published',)
+    list_filter = ('is_published',)
+    search_fields = ('content__startswith',)
+admin.site.register(WebsiteDescription, WebsiteDescriptionAdmin)
