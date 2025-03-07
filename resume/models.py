@@ -1,7 +1,5 @@
 from django.db import models
-from decouple import config
-from cloudinary.models import CloudinaryField
-from app.models import random_digits, hash_generate
+from project.utils import hash_generate, handle_image_upload
 
 
 
@@ -19,11 +17,19 @@ class Summary(models.Model):
 
 
 class Organization(models.Model):
-    organization_hash = models.CharField(primary_key=True, default=hash_generate, max_length=3, blank=False, null=False)
+    organization_hash = models.CharField(primary_key=True, default="", max_length=3, blank=True, null=False)
     organization_name = models.CharField(max_length=1000, blank=False, null=False, default='')
-    organization_logo = CloudinaryField('image') if config('ENV') == 'PROD' else models.ImageField(upload_to='assets/organization', blank=False, null=False, default='')
-    organization_logo_alt = models.CharField(max_length=1000, blank=False, null=False, default='')
+    organization_logo = models.ImageField(upload_to='assets/organization', blank=False, null=False, default='')
+    organization_logo_alt = models.CharField(max_length=1000, blank=True, null=False, default='')
 
+    def save(self, *args, **kwargs):
+        if not self.organization_hash:
+            self.organization_hash = hash_generate(3)
+        if not self.organization_logo_alt:
+            self.organization_logo_alt = f"{self.organization_name.capitalize()}'s Brand Logo"
+        super(Organization, self).save(*args, **kwargs)
+
+    
     class Meta:
         ordering = ('organization_name', 'organization_hash',)
 
@@ -33,7 +39,7 @@ class Organization(models.Model):
 
 
 class Experience(models.Model):
-    experience_id = models.CharField(primary_key=True, default=random_digits, max_length=5, blank=False, null=False)
+    experience_id = models.CharField(primary_key=True, default="", max_length=5, blank=True, null=False)
     company =  models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, blank=False)
     position = models.CharField(max_length=1000, blank=True, null=True, default='')
     start_date = models.DateField(null=True, blank=True)
@@ -41,6 +47,13 @@ class Experience(models.Model):
     description = models.TextField(null=True, blank=True, default='')
     is_published = models.BooleanField(default=False)
     
+
+    def save(self, *args, **kwargs):
+        if not self.experience_id:
+            self.experience_id = hash_generate(5)
+        super(Experience, self).save(*args, **kwargs)
+
+
     class Meta:
         ordering = ('company', 'start_date', 'end_date', 'is_published', 'experience_id',)
 
@@ -51,7 +64,7 @@ class Experience(models.Model):
 
 
 class Certification(models.Model):
-    certification_hash = models.CharField(primary_key=True, default=hash_generate, max_length=3, blank=False, null=False)
+    certification_hash = models.CharField(primary_key=True, default="", max_length=3, blank=True, null=False)
     institution =  models.ForeignKey(Organization, on_delete=models.SET_NULL, null=True, blank=False)
     degree = models.CharField(max_length=1000, blank=True, null=True, default='')
     start_date = models.DateField(null=True, blank=True)
@@ -60,6 +73,11 @@ class Certification(models.Model):
     certification_url = models.URLField(blank=True, null=True, default='')
     description = models.TextField(blank=True, null=True, default='')
     is_published = models.BooleanField(default=False)
+
+    def save(self, *args, **kwargs):
+        if not self.certification_hash:
+            self.certification_hash = hash_generate(3)
+        super(Certification, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('degree', 'institution', 'start_date', 'end_date', 'is_published', 'certification_hash',)
@@ -70,8 +88,13 @@ class Certification(models.Model):
 
 
 class Skill(models.Model):
-    skill_id = models.CharField(primary_key=True, default=random_digits, max_length=5, blank=False, null=False)
+    skill_id = models.CharField(primary_key=True, default="", max_length=5, blank=True, null=False)
     skill_name = models.CharField(max_length=1000, blank=False, null=False, default='')
+
+    def save(self, *args, **kwargs):
+        if not self.skill_id:
+            self.skill_id = hash_generate(5)
+        super(Skill, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('skill_name', 'skill_id',)
