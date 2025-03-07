@@ -56,6 +56,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'project.wsgi.application'
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'https://therealitynotes.onrender.com',
+    'https://realitynotes.vercel.app',
+    'https://notes.rstvns.online',
+]
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
