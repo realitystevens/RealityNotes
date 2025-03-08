@@ -19,24 +19,20 @@ def hash_generate(num_of_chars):
 
 def handle_image_upload(image_file):
     """
-    Upload the image to Cloudinary if the environment 
-    is production, else return the image
+    Upload the image to Cloudinary
     """
-    if config('ENV') == 'PROD':
-        upload_result = upload(image_file)
-        return upload_result['secure_url']
-    else:
-        return image_file
+    upload_result = upload(image_file)
+    return upload_result['secure_url']
 
 
-def generate_image_caption(image_url):
+def generate_image_caption(image_url, is_image_file=True):
     """
     Generate a caption for the image using the Blip Image Captioning model
     """
     processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
     model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
 
-    if config('ENV') == 'PROD':
+    if not is_image_file:
         response = requests.get(image_url, stream=True)
         response.raise_for_status()
         image = Image.open(response.raw)
@@ -58,16 +54,16 @@ def get_content_description(content_title, content_body):
     model = genai.GenerativeModel("gemini-1.5-pro-latest")
 
     prompt = f"""
-    You are an expert writer. 
-    Use this Content Title and Content Body of the blog to generate a nice introduction (that will serve as the blog's content description) for the blog. 
+    You are an expert blog article writer. 
+    Use this Content Title and Content Body of the blog to generate a nice introduction (that will serve as the blog article's content description) for the blog article. 
     Let the description be nice, catchy and make the reader more interested in reading the content of the blog.
-    Let the description also be as human as possible - as those it was written by a human writer not an AI.
+    Let the description also be as human as possible - as though it was written by a human writer not an AI.
 
     Content Title = {content_title}
 
     Blog Content = {content_body}
 
-    Note: Let your response only be the content description. Do not include any other information.
+    Note: Let your response only be the Content Description. Do not include any other information.
     """
 
     try:
