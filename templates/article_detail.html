@@ -7,7 +7,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="{{article_details.title}}">
 <meta name="description" content="{{article_details.description}}">
-<meta property="og:image" content="{{article_details.image.url}}">
+<meta property="og:image" content="{{article_details.final_image_url}}">
 <link rel="canonical" href="{{request.build_absolute_uri}}">
 <link rel="stylesheet" href="{% static 'article_detail.css' %}">
 {% endblock %}
@@ -39,7 +39,7 @@
 <section class="a_article">
     <div class="a_article_wrap pad_space">
         <div class="img_cont">
-            <img src="{{article_details.image.url}}" alt="{{article_details.image_alt}}" class="article_hero_img">
+            <img src="{{article_details.final_image_url}}" alt="{{article_details.image_alt}}" class="article_hero_img">
         </div>
         <div>{{article_details.content|safe}}</div>
     </div>
