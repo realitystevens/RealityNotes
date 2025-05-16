@@ -1,8 +1,6 @@
 from decouple import config
 from project.settings.settings import *
 import cloudinary
-import cloudinary.api
-import cloudinary.uploader
 
 
 
@@ -44,5 +42,3 @@ DATABASES = {
         'PORT': config('DB_PORT'),
     }
 }
-
-CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"

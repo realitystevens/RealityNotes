@@ -15,7 +15,7 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     '.onrender.com',
     '.vercel.app',
-    'notes.rstvns.online',
+    'notes.realitystevens.me',
 ]
 
 
@@ -60,7 +60,7 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'https://therealitynotes.onrender.com',
     'https://realitynotes.vercel.app',
-    'https://notes.rstvns.online',
+    'https://notes.realitystevens.me',
 ]
 
 
@@ -109,5 +109,7 @@ MEDIA_URL = 'media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
