@@ -2,5 +2,5 @@
 
 Blog for Reality Stevens. Built using Django Framework in Python.
 
-[notes.rstvns.online](https://notes.rstvns.online)
+[notes.realitystevens.me](https://notes.realitystevens.me)
 
