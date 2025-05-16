@@ -1,12 +1,12 @@
 import random
 import requests
-from PIL import Image
 from decouple import config
 import google.api_core.exceptions
 import google.generativeai as genai
+from google.generativeai import types
 from cloudinary.uploader import upload
-from transformers import BlipProcessor, BlipForConditionalGeneration
 
+GOOGLE_APIKEY = config("GOOGLE_APIKEY")
 
 
 
@@ -14,10 +14,10 @@ def hash_generate(num_of_chars):
     """
     Generate a random string of numbers
     """
-    return ''.join(random.choice('23456789') for x in range(num_of_chars))
+    return ''.join(random.choice('23456789') for _ in range(num_of_chars))
 
 
-def handle_image_upload(image_file):
+def upload_image_online(image_file):
     """
     Upload the image to Cloudinary
     """
@@ -25,33 +25,53 @@ def handle_image_upload(image_file):
     return upload_result['secure_url']
 
 
-def generate_image_caption(image_url, is_image_file=True):
+def generate_image_caption(local_image_url=None, online_image_url=None):
     """
-    Generate a caption for the image using the Blip Image Captioning model
+    Generate an image caption for the image using Gemini AI via the API
     """
-    processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-    model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base")
+    try:
+        genai.configure(api_key=GOOGLE_APIKEY)
 
-    if not is_image_file:
-        response = requests.get(image_url, stream=True)
-        response.raise_for_status()
-        image = Image.open(response.raw)
-    else:
-        image = Image.open(image_url)
+        if local_image_url:
+            # Handle ImageFieldFile objects
+            if hasattr(local_image_url, 'path'):
+                with open(local_image_url.path, 'rb') as f:
+                    image_bytes = f.read()
+            else:
+                # If it's not a file path, assume it's a file-like object
+                image_bytes = local_image_url.read()
 
-    inputs = processor(image, return_tensors="pt")
-    caption = model.generate(**inputs)
+            image = types.Part.from_bytes(data=image_bytes, mime_type='image/png')
+            prompt = "Caption this image."
+        elif online_image_url:
+            image_bytes = requests.get(online_image_url).content
+            image = types.Part.from_bytes(data=image_bytes, mime_type='image/jpeg')
+            prompt = "What is this image?"
+        elif local_image_url and online_image_url:
+            return "Both local and online image URLs provided. Please provide only one."
+        else:
+            return "No image path or URL provided."
 
-    return processor.decode(caption[0], skip_special_tokens=True)
+        model = genai.GenerativeModel("gemini-2.0-flash")
+        response = model.generate_content(contents=[prompt, image])
 
+        return response.candidates[0].content.parts[0].text.strip() if response.candidates else "No response from Gemini AI API"
+    except requests.RequestException as req_error:
+        return f"Error fetching online image: {req_error}"
+    except google.api_core.exceptions.GoogleAPIError as api_error:
+        return f"API Error from Gemini AI: {api_error}"
+    except FileNotFoundError:
+        return "Local image file not found."
+    except Exception as e:
+        return f"Unexpected Error in 'generate_image_caption()': {e}"
+    
 
 def get_content_description(content_title, content_body):
     """
-    Generate a description for the content using the Gemini AI API
+    Generate a description for the content using the Gemini AI via the API
     """
-    GOOGLE_APIKEY = config("GOOGLE_APIKEY")
     genai.configure(api_key=GOOGLE_APIKEY)
-    model = genai.GenerativeModel("gemini-1.5-pro-latest")
+    model = genai.GenerativeModel("gemini-2.0-flash")
 
     prompt = f"""
     You are an expert blog article writer. 
